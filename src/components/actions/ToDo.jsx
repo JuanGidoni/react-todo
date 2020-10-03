@@ -15,10 +15,21 @@ const ToDo = ({text, todo, todos, setTodos, id}) => {
         return item;
         }))
     }
+    const importanteTodo = () => {
+        setTodos(todos.map((item) => {
+            if(item.id === todo.id){
+                return {
+                    ...item, favorite: !item.favorite
+                }
+            }
+        return item;
+        }))
+    }
     return(
         <div className="todo">
-            <li className={`todo-item ${todo.completed ? "completed" : ''}`}>{text}</li>
+            <li className={`todo-item ${todo.completed ? "completed" : todo.favorite ? "favorited" : ''}`}>{text}</li>
             <button onClick={completeTodo} className="complete-btn"><i className="fas fa-check"></i></button>
+            <button onClick={importanteTodo} className="star-btn"><i className="fas fa-star"></i></button>
             <button onClick={deleteTodo} className="trash-btn"><i className="fas fa-trash"></i></button>
         </div>
     );

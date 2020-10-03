@@ -29,6 +29,9 @@ function App() {
       case 'completed':
         setFilterTodos(todos.filter(todo => todo.completed === true));
         break;
+        case 'favorite':
+          setFilterTodos(todos.filter(todo => todo.favorite === true));
+          break;
         case 'uncompleted':
           setFilterTodos(todos.filter(todo => todo.completed === false));
           break;
@@ -49,13 +52,17 @@ function App() {
     }
   }
         return (
-    <div className="App">
-      <div className="App-header">
-        <p>
+    <div className="container App">
+      <div className="row">
+      <div className="col-12 col-md-6 col-lg-8 text-center"> 
+        <div className="col-12 App-header pt-5 mx-auto">
+        <p className="text-center">
           React-ToDo
         </p>
         <p className="smaller">Created by <a href="https://github.com/JuanGidoni">Juan Ignacio Gidoni</a></p>
-      <Form 
+        </div>
+        <div className="d-flex flex-column justify-content-center align-items-center">
+     <Form 
       input={input}
       todos={todos}
       setTodos={setTodos}
@@ -64,7 +71,10 @@ function App() {
       active={active}
       setActive={setActive}
       />
-      <div className="todoBox">
+        </div>
+      </div>
+      <div className="col-12 col-md-6 col-lg-4 todoBox pt-5 pt-md-0">
+        <h2 className="text-white text-center input-todo">ToDo List</h2>
       <ToDoList 
       filterTodos={filterTodos} 
       setTodos={setTodos} 
