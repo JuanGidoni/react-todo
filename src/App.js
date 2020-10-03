@@ -1,66 +1,76 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
-import ToDo from './components/ToDo';
+// Import Components
+import Form from './components/Form';
+import ToDoList from './components/ToDoList'
 
 function App() {
+  
+  // State consts 
   const [input, setInput] = useState('');
   const [todos, setTodos] = useState([]);
-  const [check, setCheck] = useState(false);
-  
-  const addTodo = (e) => {
-    let it = document.getElementById('addT');
-    if(!input){
-      it.className = 'error';
-      it.placeholder = 'Write something...';
-    }else if(it.value.length < 4){
-      it.className = 'error';
-      it.value = '';
-      it.placeholder = 'Minimum characters: 4';
-    }else {
-      e.preventDefault();
-      setTodos([...todos,{
-        text: input,
-        isChecked: check,
-        keyList: input
-      }]);
-      setInput('');
-      it.className = 'inputUser';
-    }
-  }
-  const addCheck = (e) => {
-    let isChecked = document.getElementById('ifCheck').checked;
-    if(isChecked){
-      setCheck(true);
-    }else{
-      setCheck(false);
-    }
-  }
+  const [status, setStatus] = useState('all');
+  const [filterTodos, setFilterTodos] = useState([]);
+  const [active, setActive] = useState(true);
 
-  return (
+    // RUN ONCE 
+    useEffect(() => {
+      getTodos()
+    }, []);
+
+    useEffect( () => {
+      filterHandler(); 
+      localTodos();
+    },[todos,status]);
+
+  // Functions
+  const filterHandler = () => {
+    switch(status){
+      case 'completed':
+        setFilterTodos(todos.filter(todo => todo.completed === true));
+        break;
+        case 'uncompleted':
+          setFilterTodos(todos.filter(todo => todo.completed === false));
+          break;
+          default:
+            setFilterTodos(todos);
+            break;
+          }
+    }
+    const localTodos = () => {
+      localStorage.setItem('todos', JSON.stringify(todos));
+  }
+  const getTodos = () => {
+    if(localStorage.getItem('todos') === null){
+      localStorage.setItem('todos', JSON.stringify([]));
+    }else {
+      let todoLocal = JSON.parse(localStorage.getItem('todos', JSON.stringify(todos)));
+      setTodos(todoLocal);
+    }
+  }
+        return (
     <div className="App">
-      <div className="userN" id="todoList">
-        <h2 class="todoList">ToDo List</h2>
-        {console.log(todos)}
-      {todos.map(todo =>(
-        <ToDo text={todo.text} checked={todo.isChecked} theKey={todo.keyList} />
-      ))} 
-      <div className="footer">
-        Made by <a href="https://github.com/JuanGidoni" target="_BLANK" rel="noopener noreferrer">@JuanGidoni</a>
-      </div>
-      </div>
-      <header className="App-header">
+      <div className="App-header">
         <p>
-          React ToDo App
+          React-ToDo
         </p>
-        <div className="box-action">
-        <input value={input} onChange={e => setInput(e.target.value)} className="inputUser" type="text" placeholder="Add something..." maxLength="25" size="25" required id="addT" />
-        <div className="tooltip">
-        <input className="checkBoxCS" type="checkbox" onChange={addCheck} id="ifCheck" />  
-        <span className="tooltiptext">Mark as done?</span>
-        </div>
-        <button className="buttonUser" onClick={addTodo} >+</button>
-        </div>
-      </header>
+        <p className="smaller">Created by <a href="https://github.com/JuanGidoni">Juan Ignacio Gidoni</a></p>
+      <Form 
+      input={input}
+      todos={todos}
+      setTodos={setTodos}
+      setInput={setInput}
+      setStatus={setStatus}
+      active={active}
+      setActive={setActive}
+      />
+      <div className="todoBox">
+      <ToDoList 
+      filterTodos={filterTodos} 
+      setTodos={setTodos} 
+      todos={todos} />
+      </div>
+      </div>
     </div>
   );
 }
