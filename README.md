@@ -2,7 +2,8 @@
 
 ToDo App by Juan Gidoni using create-react-app
 
-[x] Add ToDo to an array object
-[x] Add ToDo to ToDo List
-[x] Mark as Finished / Not finished
-[x] Validate input value
+
+* [x] Funcion para agregar Tareas
+* [x] Lista de Tareas con el checkbox
+* [x] Opcion para agregar la tarea lista o por hacer.
+* [x] Verificación de mensaje minimo de 4 y sino hay mensaje.
