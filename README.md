@@ -23,7 +23,12 @@ React ToDo by Juan Gidoni using create-react-app
 * [x] Saving ToDos on react state & localStorage.
 
 ---- 5/10
+
 * [x] Notifications for your actions (mark as complete, important, delete all, etc...).
 * [x] New Design added.
 * [x] Add a counter of ToDos and FiltersToDos.
 * [x] Added responsive version for mobiles.
+
+---- New 
+
+* [x] Added date of each ToDo

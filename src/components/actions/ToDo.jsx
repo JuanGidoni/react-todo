@@ -47,11 +47,16 @@ const ToDo = ({text, todo, todos, setTodos, id, time}) => {
         }))
     }
     return(
-        <div className="todo">
-            <li className={`todo-item ${todo.completed ? "completed" : todo.favorite ? "favorited" : ''}`}>{text}</li>
+        <div className="d-flex flex-column">
+        <div className="bg-reacTodo text-white" title={`Created at: ${todo.date.day}/${todo.date.month}/${todo.date.year} ${todo.date.hours}:${todo.date.mins}`}>
+        {`${todo.date.day <= 9 ? '0'+todo.date.day : todo.date.day}/${todo.date.month <= 9 ? '0'+todo.date.month : todo.date.month}/${todo.date.year} ${todo.date.hours}:${todo.date.mins <= 9 ? '0'+todo.date.mins: todo.date.mins}:${todo.date.sec <= 9 ? '0'+todo.date.sec : todo.date.sec}`}
+        </div>
+            <div className="todo">
+            <li title={`Created at: ${todo.date.day}/${todo.date.month}/${todo.date.year} ${todo.date.hours}:${todo.date.mins}`} className={`todo-item ${todo.completed ? "completed" : todo.favorite ? "favorited" : ''}`}>{text}</li>
             <button onClick={completeTodo} className={`${todo.completed ? "completed-btn" : "complete-btn text-white"}`}><i className="fas fa-check"></i></button>
             <button onClick={importanteTodo} className={`${todo.favorite ? "stars-btn" : "star-btn text-white"}`}><i className="fas fa-star"></i></button>
             <button onClick={deleteTodo} className="trash-btn"><i className="fas fa-trash"></i></button>
+            </div>
         </div>
     );
 }

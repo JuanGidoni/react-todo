@@ -30,6 +30,7 @@ function App() {
   const filterHandler = () => {
     let alertbox = document.getElementById('alert');
     let alertBtn = document.createElement('p');
+    let date = new Date();
     switch(status){
       case 'completed':
         setFilterTodos(todos.filter(todo => todo.completed === true));

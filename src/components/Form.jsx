@@ -9,10 +9,18 @@ export default function Form({input, setInput, todos, setTodos, setStatus, activ
         let alertbox = document.getElementById('alert');
         let alertBtn = document.createElement('p');
         e.preventDefault();
+        let date = new Date();
         let inputL = input.length
         if(inputL >= 4){
             setTodos([
-                ...todos,{text: input, completed: false, favorite: false, id: Math.random()*1000, date: new Date(),},
+                ...todos,{text: input, completed: false, favorite: false, id: Math.random()*1000, date: {
+                    year: date.getFullYear(),
+                    month: date.getMonth(),
+                    day: date.getDay(),
+                    hours: date.getHours(),
+                    mins: date.getMinutes(),
+                    sec: date.getSeconds()
+                }, timestamp: date.getTime()},
             ]);
             btn.placeholder = 'Add another one...';
             btn.className = 'input-todo';
@@ -36,6 +44,8 @@ export default function Form({input, setInput, todos, setTodos, setStatus, activ
             setStatus('favorite');
         }else if(e.target.value === 'completed'){
             setStatus('completed');
+        }else if(e.target.value === 'date'){
+            setStatus('date');
         }else{
             setStatus('uncompleted');
         }
