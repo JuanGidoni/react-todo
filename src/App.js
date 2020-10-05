@@ -3,6 +3,8 @@ import './App.css';
 // Import Components
 import Form from './components/Form';
 import ToDoList from './components/ToDoList'
+import Header from './components/Header'
+import Footer from './components/Footer'
 
 function App() {
   
@@ -16,24 +18,42 @@ function App() {
     // RUN ONCE 
     useEffect(() => {
       getTodos()
-    }, []);
+    },[]);
 
     useEffect( () => {
       filterHandler(); 
       localTodos();
     },[todos,status]);
-
+    
   // Functions
+
   const filterHandler = () => {
+    let alertbox = document.getElementById('alert');
+    let alertBtn = document.createElement('p');
     switch(status){
       case 'completed':
         setFilterTodos(todos.filter(todo => todo.completed === true));
+        alertBtn.innerText = 'Filter set as completed...';
+        alertbox.appendChild(alertBtn);
+        setTimeout(() => {
+            alertbox.removeChild(alertBtn);
+        }, 2000);
         break;
         case 'favorite':
           setFilterTodos(todos.filter(todo => todo.favorite === true));
+          alertBtn.innerText = 'Filter set as important...';
+        alertbox.appendChild(alertBtn);
+        setTimeout(() => {
+            alertbox.removeChild(alertBtn);
+        }, 2000);
           break;
         case 'uncompleted':
           setFilterTodos(todos.filter(todo => todo.completed === false));
+          alertBtn.innerText = 'Filter set as uncompleted...';
+        alertbox.appendChild(alertBtn);
+        setTimeout(() => {
+            alertbox.removeChild(alertBtn);
+        }, 2000);
           break;
           default:
             setFilterTodos(todos);
@@ -52,15 +72,10 @@ function App() {
     }
   }
         return (
-    <div className="container App">
+    <div className="container-fluid App">
       <div className="row">
-      <div className="col-12 col-md-6 col-lg-8 text-center"> 
-        <div className="col-12 App-header pt-5 mx-auto">
-        <p className="text-center">
-          React-ToDo
-        </p>
-        <p className="smaller">Created by <a href="https://github.com/JuanGidoni">Juan Ignacio Gidoni</a></p>
-        </div>
+        <Header todos={todos} filterTodos={filterTodos} status={status} />
+      <div className="col-12 col-md-12 col-lg-6 text-center bg-white"> 
         <div className="d-flex flex-column justify-content-center align-items-center">
      <Form 
       input={input}
@@ -73,14 +88,15 @@ function App() {
       />
         </div>
       </div>
-      <div className="col-12 col-md-6 col-lg-4 todoBox pt-5 pt-md-0">
-        <h2 className="text-white text-center input-todo">ToDo List</h2>
+      <div className="col-12 col-md-12 col-lg-6 todoBox pt-5 pt-md-0 bg-white h-100">
+        <h2 className="text-center input-todo text-reacTodo">ToDo List</h2>
       <ToDoList 
       filterTodos={filterTodos} 
       setTodos={setTodos} 
       todos={todos} />
       </div>
       </div>
+      <Footer />
     </div>
   );
 }

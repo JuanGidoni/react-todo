@@ -1,11 +1,25 @@
 import React from 'react'
 
-const ToDo = ({text, todo, todos, setTodos, id}) => {
-
+const ToDo = ({text, todo, todos, setTodos, id, time}) => {
+    
+    let alertbox = document.getElementById('alert');
+    let alertBtn = document.createElement('p');
     const deleteTodo = () => {
-        setTodos(todos.filter((el) => el.id !== todo.id))
+        setTodos(todos.filter((el) => el.id !== todo.id));
+        alertBtn.innerText = 'ToDo deleted...';
+        alertbox.appendChild(alertBtn);
+        setTimeout(() => {
+            alertbox.removeChild(alertBtn);
+        }, 2000);
     }
     const completeTodo = () => {
+            
+        alertBtn.innerText = 'ToDo marked as completed...';
+        alertbox.appendChild(alertBtn);
+        setTimeout(() => {
+            alertbox.removeChild(alertBtn);
+        }, 2000);
+        
         setTodos(todos.map((item) => {
             if(item.id === todo.id){
                 return {
@@ -16,6 +30,13 @@ const ToDo = ({text, todo, todos, setTodos, id}) => {
         }))
     }
     const importanteTodo = () => {
+
+        alertBtn.innerText = 'ToDo marked as important...';
+        alertbox.appendChild(alertBtn);
+        setTimeout(() => {
+            alertbox.removeChild(alertBtn);
+        }, 2000);
+
         setTodos(todos.map((item) => {
             if(item.id === todo.id){
                 return {
@@ -28,8 +49,8 @@ const ToDo = ({text, todo, todos, setTodos, id}) => {
     return(
         <div className="todo">
             <li className={`todo-item ${todo.completed ? "completed" : todo.favorite ? "favorited" : ''}`}>{text}</li>
-            <button onClick={completeTodo} className="complete-btn"><i className="fas fa-check"></i></button>
-            <button onClick={importanteTodo} className="star-btn"><i className="fas fa-star"></i></button>
+            <button onClick={completeTodo} className={`${todo.completed ? "completed-btn" : "complete-btn text-white"}`}><i className="fas fa-check"></i></button>
+            <button onClick={importanteTodo} className={`${todo.favorite ? "stars-btn" : "star-btn text-white"}`}><i className="fas fa-star"></i></button>
             <button onClick={deleteTodo} className="trash-btn"><i className="fas fa-trash"></i></button>
         </div>
     );

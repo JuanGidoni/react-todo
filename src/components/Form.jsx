@@ -50,12 +50,14 @@ export default function Form({input, setInput, todos, setTodos, setStatus, activ
             alertbox.removeChild(alertBtn);
         }, 2000);
         setTodos([]);
+        setStatus('all');
     }
     return (
         <form>
             <div id="alert"></div>
-            <input value={input} id="input-todo" type="text" onChange={inputChange} placeholder='Write something...' minLength="4" maxLength="16" size="18" className="input-todo"/>
+            <input value={input} id="input-todo" type="text" onChange={inputChange} placeholder='Add a task' minLength="4" maxLength="50" size="20" className="input-todo"/>
             <button onClick={SubmitForm} type="submit" className="buttonUser">+</button>
+
             <div className="select d-flex flex-column flex-md-row justify-content-center align-items-center">
                 <button className={`select-button ${active ? "active" : ''}`} value="all" onClick={statusHandler} >All</button>
                 <button className={`select-button ${active ? "active" : ''}`} value="completed" onClick={statusHandler}>Completed</button>
