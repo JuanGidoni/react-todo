@@ -20,17 +20,15 @@ const Header = ({todos, filterTodos, status}) => {
         <a className="navbar-brand" href="/">React ToDo</a>
           <ul className="navbar-nav mr-auto">
             <li className="nav-item active">
-              <a className="nav-link text-muted" href="https://github.com/JuanGidoni">Created by Juan Ignacio Gidoni</a>
+              <a className="nav-link text-muted created" href="https://github.com/JuanGidoni">Created by Juan Ignacio Gidoni</a>
             </li>
           </ul>
           <ul className="navbar-nav ml-auto nav-flex-icons">
-            <li className="nav-item">
+            <li className="nav-item d-flex flex-row justify-content-center">
               <button className="nav-link waves-effect waves-light btn text-white bg-reacTodo mr-1 p-1 md-p-0 cursor-none">
                   <span id="totalTodo" className="mr-1">{todos.length}</span>
                 <i className="fas fa-tasks"></i>
               </button>
-            </li>
-            <li className="nav-item">
               <button className="nav-link waves-effect waves-light btn text-white bg-reacTodo p-1 md-p-0 cursor-none">
                   <span className="mr-1">{todosLen}</span>
                 <i className={classFilter}></i>

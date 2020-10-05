@@ -1,9 +1,6 @@
 import React from 'react'
 import ToDo from './actions/ToDo'
 const ToDoList = ({todos, setTodos, filterTodos}) => {
-
-    let emptyTodo = document.createElement('p');
-    emptyTodo.classList.add('text-center');
     
     return(
         <div className="todo-container text-center mb-5">
